@@ -5,15 +5,18 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Patterns;
-import android.view.View;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.serpanalo.legalaplication.repository.OnLoginResponseCallback;
+import com.serpanalo.legalaplication.repository.Repository;
+import com.serpanalo.legalaplication.model.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements OnLoginResponseCallback {
 
     @BindView(R.id.til_user)
     TextInputLayout tilUser;
@@ -59,13 +62,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendLogin(){
 
-        //TODO UserRepository.sendLoginRequest("","",this);
+       Repository.postLogin("","",this);
     }
 
 
     @OnClick(R.id.login_button)
     public void onViewClicked() {
         verifyData();
+    }
+
+
+    @Override
+    public void onSuccess(User user) {
+        //TODO guaramos usuario
+        Log.d("XX", "Login Ok");
+    }
+
+    @Override
+    public void onError(String error) {
+        //TODO toast hay un error
+
     }
 
 

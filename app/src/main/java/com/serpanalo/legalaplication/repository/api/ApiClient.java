@@ -1,4 +1,4 @@
-package com.serpanalo.legalaplication.api;
+package com.serpanalo.legalaplication.repository.api;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.serpanalo.legalaplication.BuildConfig;
 

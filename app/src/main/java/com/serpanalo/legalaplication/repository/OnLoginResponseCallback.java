@@ -1,4 +1,4 @@
-package com.serpanalo.legalaplication;
+package com.serpanalo.legalaplication.repository;
 
 import com.serpanalo.legalaplication.model.User;
 

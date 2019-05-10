@@ -23,7 +23,7 @@ android {
 
         develop {
             dimension 'app'
-            buildConfigField "String", "BASE_URL", "http://ajax.garapenapp.com/api/";
+            buildConfigField "String", "BASE_URL",   "\"http://ajax.garapenapp.com/api/\""
         }
 
     }

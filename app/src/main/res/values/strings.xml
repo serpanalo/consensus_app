@@ -21,4 +21,13 @@
     <string name="bt_login">Login</string>
     <string name="no_user">introduzca un usuario</string>
     <string name="no_pass">introduzca una contraseña</string>
+
+    <string name="onboarding_start">Empezar</string>
+    <string name="onboarding_1_title">Title 1</string>
+    <string name="onboarding_1_desc">Des 1</string>
+    <string name="onboarding_2_title">Title 2</string>
+    <string name="onboarding_2_desc">Des 2.</string>
+
+
+
 </resources>
