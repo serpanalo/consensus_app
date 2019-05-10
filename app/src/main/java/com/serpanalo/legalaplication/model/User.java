@@ -3,18 +3,22 @@ package com.serpanalo.legalaplication.model;
 public class User {
 
     private String id;
+    private String ncolegiado;
     private String name;
     private String rol;
-    private String surname;
+    private String firstname;
+    private String token;
 
     public User() {
     }
 
-    public User(String id, String name, String rol, String surname) {
+    public User(String id, String ncolegiado, String name, String rol, String firstname, String token) {
         this.id = id;
+        this.ncolegiado = ncolegiado;
         this.name = name;
         this.rol = rol;
-        this.surname = surname;
+        this.firstname = firstname;
+        this.token = token;
     }
 
     public String getId() {
@@ -23,6 +27,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNcolegiado() {
+        return ncolegiado;
+    }
+
+    public void setNcolegiado(String ncolegiado) {
+        this.ncolegiado = ncolegiado;
     }
 
     public String getName() {
@@ -41,11 +53,19 @@ public class User {
         this.rol = rol;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

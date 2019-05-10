@@ -1,10 +1,16 @@
 package com.serpanalo.legalaplication.repository;
 
+import com.serpanalo.legalaplication.Utils;
 import com.serpanalo.legalaplication.repository.api.ApiClient;
 import com.serpanalo.legalaplication.repository.api.ApiService;
 import com.serpanalo.legalaplication.model.Document;
 import com.serpanalo.legalaplication.model.User;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observables.ConnectableObservable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,4 +77,41 @@ public class Repository {
             }
         });
     }
+
+
+
+    public static DisposableObserver<Document> loadDocument(ConnectableObservable<Document> cancionesObservable, final OnDocumentResponseCallback onDocumentResponseCallback) {
+
+        return cancionesObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Document>() {
+
+                                   @Override
+                                   public void onNext(Document document) {
+                                       onDocumentResponseCallback.onSuccess(document);
+                                   }
+
+                                   @Override
+                                   public void onError(Throwable e) {
+                                       onDocumentResponseCallback.onError(e.toString());
+                                   }
+
+                                   @Override
+                                   public void onComplete() {
+
+                                   }
+                               }
+
+                );
+    }
+
+    public static Observable<Document> getActiveDocument() {
+
+        return apiService.getActiveDocument(Utils.getToken())
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
 }

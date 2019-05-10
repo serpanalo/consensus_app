@@ -1,5 +1,6 @@
 package com.serpanalo.legalaplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -41,28 +42,28 @@ public class LoginActivity extends AppCompatActivity implements OnLoginResponseC
 
         boolean errors = false;
 
-        String email = tiUser.getText().toString();
-        String password = tiPass.getText().toString();
+        String user = tiUser.getText().toString();
+        String pass = tiPass.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(user)) {
             tilUser.setError(getResources().getString(R.string.no_user));
             errors = true;
         }
 
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(pass)) {
             tilUser.setError(getResources().getString(R.string.no_pass));
             errors = true;
         }
 
-        if (!errors){
-            sendLogin();
+        if (!errors) {
+            sendLogin(user, pass);
         }
 
     }
 
-    public void sendLogin(){
+    public void sendLogin(String user, String pass) {
 
-       Repository.postLogin("","",this);
+        Repository.postLogin(user, pass, this);
     }
 
 
@@ -74,14 +75,29 @@ public class LoginActivity extends AppCompatActivity implements OnLoginResponseC
 
     @Override
     public void onSuccess(User user) {
-        //TODO guaramos usuario
-        Log.d("XX", "Login Ok");
+
+        if (user != null) {
+            Log.d("XX", "Login Ok " + user.toString());
+            Utils.saveToken(user.getToken());
+            launchHome();
+        } else {
+
+        }
+
+
     }
 
     @Override
     public void onError(String error) {
         //TODO toast hay un error
 
+    }
+
+
+    private void launchHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 
