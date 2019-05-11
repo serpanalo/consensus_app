@@ -99,12 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.active_document) {
 
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.about) {
-
         } else if (id == R.id.logout) {
-
+            Utils.saveToken("");
+            Utils.saveBooleanValue(this,Constants.FIRST_TIME, true);
+            gotoSplashActivity();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -113,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void readUser() {
+
 
     }
 
@@ -166,6 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    private void gotoSplashActivity() {
+
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void onArticleValidateClicked(Article article, int position) {

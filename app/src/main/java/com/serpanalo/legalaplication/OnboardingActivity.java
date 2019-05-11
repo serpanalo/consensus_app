@@ -79,7 +79,7 @@ public class OnboardingActivity extends AppCompatActivity {
             dots = new TextView[layouts.length];
 
             int colorInactive = getResources().getColor(R.color.cardview_dark_background);
-            int colorActive = getResources().getColor(R.color.white);
+            int colorActive = getResources().getColor(R.color.start_button);
 
             dotsLayout.removeAllViews();
             for (int i = 0; i < dots.length; i++) {

@@ -3,6 +3,8 @@ package com.serpanalo.legalaplication;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -36,6 +38,8 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
     RadioButton rbImplicationNegative;
     @BindView(R.id.rg_implications)
     RadioGroup rgImplications;
+    @BindView(R.id.pBar)
+    ProgressBar pBar;
 
     private String documentId;
 
@@ -59,6 +63,8 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
 
     private void sendVote() {
 
+        pBar.setVisibility(View.VISIBLE);
+
         Repository.postVote(documentId,
                 rbStructureNegative.isChecked(), rbStruturePos.isChecked(),
                 rbRedactionPos.isChecked(), rbRedactionNegative.isChecked(),
@@ -69,6 +75,8 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
     @Override
     public void onSuccess(Document document) {
 
+        pBar.setVisibility(View.GONE);
+
         if (document != null) {
             Log.d("XX", "ok");
         }
@@ -77,6 +85,7 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
 
     @Override
     public void onError(String error) {
+        pBar.setVisibility(View.GONE);
 
     }
 
@@ -103,8 +112,8 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
     @OnClick(R.id.send_button)
     public void onViewClicked() {
 
-       // if (!checkSelection()) {
-            sendVote();
-       // }
+        // if (!checkSelection()) {
+        sendVote();
+        // }
     }
 }
