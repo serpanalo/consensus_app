@@ -22,20 +22,22 @@
     <string name="no_pass">introduzca una contraseña</string>
 
     <string name="onboarding_start">Empezar</string>
-    <string name="onboarding_1_title">Construimos leyes</string>
-    <string name="onboarding_1_desc">Tod@s aportamo</string>
-    <string name="onboarding_2_title">Validamos</string>
-    <string name="onboarding_2_desc">ewfewfeece</string>
+    <string name="onboarding_1_title">Cada voto es importante</string>
+    <string name="onboarding_1_desc">Todos  somos y aportamos</string>
+    <string name="onboarding_2_title">Unidos somos mejores</string>
+    <string name="onboarding_2_desc">Contribuimos mejorando nuestro sistema judicial</string>
     <string name="options">Opciones</string>
-
 
     <string name="rb_structure">¿Tiene el documento la estructura correcta?</string>
     <string name="rb_redaction">¿Está el documento correctamente redactado?</string>
     <string name="rb_implication">¿Está en desacuerdo con las implicaciones del documento?</string>
+
+    <string name="rb_structure_a">¿Tiene el artículo la estructura correcta?</string>
+    <string name="rb_redaction_a">¿Está el artículo correctamente redactado?</string>
+    <string name="rb_implication_a">¿Está en desacuerdo con las implicaciones del artículo?</string>
+
     <string name="rb_true">Sí</string>
     <string name="rb_false">No</string>
-
-
 
     <string name="bt_login">Login</string>
     <string name="bt_vote">Enviar votación</string>
