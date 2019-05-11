@@ -52,8 +52,6 @@ public class OnboardingActivity extends AppCompatActivity {
             setupUI();
             setupAdapter();
 
-            UUIDGenerator.deviceIdGenerator(this);
-
         }
 
 

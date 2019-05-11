@@ -4,36 +4,50 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 
+import com.serpanalo.legalaplication.Adapter.ArticleAdapter;
+import com.serpanalo.legalaplication.holder.OnArticleAdapterClickListener;
 import com.serpanalo.legalaplication.model.Article;
+import com.serpanalo.legalaplication.model.Constants;
 import com.serpanalo.legalaplication.model.Document;
 import com.serpanalo.legalaplication.repository.OnDocumentResponseCallback;
 import com.serpanalo.legalaplication.repository.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observables.ConnectableObservable;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnDocumentResponseCallback {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        OnDocumentResponseCallback,
+        OnArticleAdapterClickListener {
 
-    @BindView(R.id.main_document_text)
-    TextView mainDocumentText;
+    @BindView(R.id.articles_recycler)
+    RecyclerView rvArticles;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
+    private RecyclerView.LayoutManager rlayoutManager;
+    private ArticleAdapter articleAdapter;
+    private List<Article> articleList = new ArrayList<>();
 
     private CompositeDisposable disposable = new CompositeDisposable();
+    private String documentId = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gotoVote();
-            }
-        });
-
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -66,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -76,13 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_validate) {
+            gotoVote();
             return true;
         }
 
@@ -124,15 +126,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onSuccess(Document document) {
 
+
         if (document != null) {
+            documentId = document.getId();
+
+            if (document.getTitle() != null) {
+                toolbar.setTitle(document.getTitle());
+            }
 
             if (document.getArticles() != null) {
-                StringBuilder sb = new StringBuilder();
-                for (Article article : document.getArticles()) {
-                    sb.append(article.getDescription());
-                }
-
-                mainDocumentText.setText(sb);
+                articleList = document.getArticles();
+                initAdapter();
             }
 
         }
@@ -145,11 +149,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+    private void initAdapter() {
+
+        articleAdapter = new ArticleAdapter(articleList, this, this);
+        RecyclerView.LayoutManager sharesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvArticles.setLayoutManager(sharesLayoutManager);
+        rvArticles.setItemAnimator(new DefaultItemAnimator());
+        rvArticles.setAdapter(articleAdapter);
+    }
+
     private void gotoVote() {//TODO ACtivityFOrREsult
+
         Intent intent = new Intent(this, VoteActivity.class);
+        intent.putExtra(Constants.DOCUMENT_ID, documentId);
         startActivity(intent);
     }
 
+
+    @Override
+    public void onArticleValidateClicked(Article article, int position) {
+        ArticleDialogFragment articleDialogFragment = ArticleDialogFragment.newInstance(article);
+        articleDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+    }
 
     @Override
     public void onBackPressed() {
@@ -160,4 +182,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+
 }

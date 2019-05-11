@@ -6,7 +6,7 @@ public class Document {
 
     private String id;
     private String title;
-    private String sketch_number;
+    private String document_version;
     private String structure_negative;
     private String structure_positive;
     private String redaction_positive;
@@ -15,13 +15,12 @@ public class Document {
     private String implication_negative;
     private ArrayList<Article> articles;
 
-    public Document() {
-    }
+    private boolean isvote;
 
-    public Document(String id, String title, String sketch_number, String structure_negative, String structure_positive, String redaction_positive, String redaction_negative, String implication_positive, String implication_negative, ArrayList<Article> articles) {
+    public Document(String id, String title, String document_version, String structure_negative, String structure_positive, String redaction_positive, String redaction_negative, String implication_positive, String implication_negative, ArrayList<Article> articles, boolean isvote) {
         this.id = id;
         this.title = title;
-        this.sketch_number = sketch_number;
+        this.document_version = document_version;
         this.structure_negative = structure_negative;
         this.structure_positive = structure_positive;
         this.redaction_positive = redaction_positive;
@@ -29,6 +28,7 @@ public class Document {
         this.implication_positive = implication_positive;
         this.implication_negative = implication_negative;
         this.articles = articles;
+        this.isvote = isvote;
     }
 
     public String getId() {
@@ -47,12 +47,12 @@ public class Document {
         this.title = title;
     }
 
-    public String getSketch_number() {
-        return sketch_number;
+    public String getDocument_version() {
+        return document_version;
     }
 
-    public void setSketch_number(String sketch_number) {
-        this.sketch_number = sketch_number;
+    public void setDocument_version(String document_version) {
+        this.document_version = document_version;
     }
 
     public String getStructure_negative() {
@@ -109,5 +109,13 @@ public class Document {
 
     public void setArticles(ArrayList<Article> articles) {
         this.articles = articles;
+    }
+
+    public boolean isIsvote() {
+        return isvote;
+    }
+
+    public void setIsvote(boolean isvote) {
+        this.isvote = isvote;
     }
 }

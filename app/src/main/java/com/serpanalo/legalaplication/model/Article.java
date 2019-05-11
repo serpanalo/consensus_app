@@ -1,6 +1,9 @@
 package com.serpanalo.legalaplication.model;
 
-public class Article {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Article implements Parcelable {
 
     private String id;
     private String arrange;
@@ -58,4 +61,38 @@ public class Article {
     public void setDocument_id(String document_id) {
         this.document_id = document_id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.arrange);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.document_id);
+    }
+
+    protected Article(Parcel in) {
+        this.id = in.readString();
+        this.arrange = in.readString();
+        this.title = in.readString();
+        this.description = in.readString();
+        this.document_id = in.readString();
+    }
+
+    public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel source) {
+            return new Article(source);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 }

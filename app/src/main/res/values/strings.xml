@@ -18,7 +18,6 @@
     <string name="user">Usuario</string>
     <string name="pass">Password</string>
 
-    <string name="bt_login">Login</string>
     <string name="no_user">introduzca un usuario</string>
     <string name="no_pass">introduzca una contraseña</string>
 
@@ -29,5 +28,17 @@
     <string name="onboarding_2_desc">Des 2.</string>
     <string name="options">Opciones</string>
 
+
+    <string name="rb_structure">¿Tiene el documento la estructura correcta?</string>
+    <string name="rb_redaction">¿Está el documento correctamente redactado?</string>
+    <string name="rb_implication">¿Está en desacuerdo con las implicaciones del documento?</string>
+    <string name="rb_true">Sí</string>
+    <string name="rb_false">No</string>
+
+
+
+    <string name="bt_login">Login</string>
+    <string name="bt_vote">Enviar votación</string>
+    <string name="document_validate">Validar</string>
 
 </resources>
