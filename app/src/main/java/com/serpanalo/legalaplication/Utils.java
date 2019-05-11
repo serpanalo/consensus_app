@@ -1,6 +1,7 @@
 package com.serpanalo.legalaplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -45,6 +46,15 @@ public class Utils {
     public static boolean getBooleanValue(Context context, String pref_name) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean(pref_name, true);
+    }
+
+    public static void shareApp() {
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Comparte la aplicación con tus compañer@s ");
+        LegalApp.getAppContext().startActivity(Intent.createChooser(shareIntent, "Consensum").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
 }

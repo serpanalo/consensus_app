@@ -58,7 +58,6 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
             documentId = extras.getString(Constants.DOCUMENT_ID);
         }
 
-
     }
 
     private void sendVote() {
@@ -69,7 +68,6 @@ public class VoteActivity extends AppCompatActivity implements OnVoteResponseCal
                 rbStructureNegative.isChecked(), rbStruturePos.isChecked(),
                 rbRedactionPos.isChecked(), rbRedactionNegative.isChecked(),
                 rbImplicationNegative.isChecked(), rbImplicationPos.isChecked(), this);
-
     }
 
     @Override

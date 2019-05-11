@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private String documentId = "1";
+    private Document document;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,19 +103,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.logout) {
             Utils.saveToken("");
-            Utils.saveBooleanValue(this,Constants.FIRST_TIME, true);
+            Utils.saveBooleanValue(this, Constants.FIRST_TIME, true);
             gotoSplashActivity();
+        } else if (id == R.id.share) {
+            Utils.shareApp();
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void readUser() {
-
-
-    }
 
     private void loadDocument() {
         ConnectableObservable<Document> documentConnectableObservable = Repository.getActiveDocument().publish();
@@ -128,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (document != null) {
             documentId = document.getId();
+
+            this.document = document;
 
             if (document.getTitle() != null) {
                 toolbar.setTitle(document.getTitle());
@@ -160,9 +163,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void gotoVote() {//TODO ACtivityFOrREsult
 
-        Intent intent = new Intent(this, VoteActivity.class);
-        intent.putExtra(Constants.DOCUMENT_ID, documentId);
-        startActivity(intent);
+        if (document.isIsvote()) {
+
+            Intent intent = new Intent(this, VoteActivity.class);
+            intent.putExtra(Constants.DOCUMENT_ID, documentId);
+            startActivity(intent);
+        } else {
+            Snackbar.make(rvArticles, "Este documento ha sido validado", Snackbar.LENGTH_LONG)
+                    .show();
+
+        }
     }
 
     private void gotoSplashActivity() {
